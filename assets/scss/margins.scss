@@ -13,4 +13,29 @@
     .mr-#{$extension} {
         margin-right: $value;
     }
+
+    .pb-#{$extension} {
+        margin-bottom: $value;
+    }
+    .pt-#{$extension} {
+        margin-top: $value;
+    }
+    .pl-#{$extension} {
+        margin-left: $value;
+    }
+    .pr-#{$extension} {
+        margin-right: $value;
+    }
+
+    .p-#{$extension} {
+        padding: $value;
+    }
+}
+
+.mx-auto {
+    margin: 0 auto;
+}
+
+.my-auto {
+    margin: auto 0;
 }

@@ -1,9 +1,9 @@
 <template>
-    <body>
+    <div>
         <SharedNavbar />
         <main>
             <slot />
         </main>
         <SharedFooter />
-    </body>
+    </div>
 </template>
