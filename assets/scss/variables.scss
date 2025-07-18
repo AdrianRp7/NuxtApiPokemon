@@ -1,0 +1,50 @@
+$screenSizes: (
+    'desktop': 1278px,
+    'tablet': 768px,
+    'mobile': 0px
+);
+
+$colors: (
+    'main': #ef5350,
+    'main-active': #c62828,
+    'white': #f0f0f0,
+    'black': #263238
+);
+
+$fonts: (
+    'h1': (
+        desktop: 40px,
+        mobile: 26px
+    ),
+    'h2': (
+        desktop: 34px,
+        mobile: 22px
+    ),
+    'h3': (
+        desktop: 28px,
+        mobile: 20px
+    ),
+    'navigation': (
+        desktop: 16px,
+        mobile: 14.5px
+    ),
+    'regular': (
+        desktop: 14px,
+        mobile: 13px
+    ),
+    'min': (
+        desktop: 9px,
+        mobile: 9px
+    )
+);
+
+$margins: (
+    '1': 0.25rem,
+    '2': 0.5rem,
+    '3': 0.75rem,
+    '4': 1rem,
+    '5': 1.5rem,
+    '6': 2rem,
+    '7': 2.5rem,
+    '8': 3rem
+);

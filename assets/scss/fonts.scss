@@ -1,0 +1,12 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'sass:map';
+
+@each $extension, $value in $fonts {
+    .is-text-#{$extension} {
+        font-size: #{map.get($value, 'desktop')};
+        @include tablet {
+            font-size: #{map.get($value, 'desktop')};
+        }
+    }
+}

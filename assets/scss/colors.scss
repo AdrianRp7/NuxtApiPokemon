@@ -1,0 +1,11 @@
+@use 'variables' as *;
+
+@each $extension, $value in $colors {
+    .is-color-#{$extension} {
+        color: $value;
+    }
+
+    .is-bg-color-#{$extension} {
+        background-color: $value;
+    }
+}

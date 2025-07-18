@@ -1,0 +1,20 @@
+@use 'variables' as *;
+@use 'sass:map';
+
+@mixin desktop {
+    @media (#{map.get($screenSizes, 'desktop')} >= width) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (#{map.get($screenSizes, 'tablet')} < width < (#{map.get($screenSizes, 'desktop')})) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (#{map.get($screenSizes, 'mobile')} <= width ) {
+        @content;
+    }
+}

@@ -1,0 +1,16 @@
+@use 'variables' as *;
+
+@each $extension, $value in $margins {
+    .mb-#{$extension} {
+        margin-bottom: $value;
+    }
+    .mt-#{$extension} {
+        margin-top: $value;
+    }
+    .ml-#{$extension} {
+        margin-left: $value;
+    }
+    .mr-#{$extension} {
+        margin-right: $value;
+    }
+}
