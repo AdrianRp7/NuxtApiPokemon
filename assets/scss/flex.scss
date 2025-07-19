@@ -2,8 +2,16 @@
     display: flex;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
 .flex-col {
     flex-direction: column;
+}
+
+.justify-content-center {
+    justify-content: center;
 }
 
 .justify-content-around {
@@ -16,4 +24,8 @@
 
 .justify-content-end {
     justify-content: flex-end;
+}
+
+.align-center {
+    align-items: center;
 }

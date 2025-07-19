@@ -1,5 +1,5 @@
 <template>
-    <header class="flex justify-content-between p-2 is-bg-color-main">
+    <header class="flex justify-content-between align-center p-4 is-bg-color-main">
         <NuxtLink to="/">
             <img class="logo" :src="'/images/pokemon-logo.svg'" />
         </NuxtLink>

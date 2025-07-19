@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="flex flex-col justify-content-between min-h-100">
         <SharedNavbar />
-        <main>
+        <main class="flex flex-1 h-100">
             <slot />
         </main>
         <SharedFooter />
