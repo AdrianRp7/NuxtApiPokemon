@@ -1,6 +1,7 @@
 import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
-import type { ResponsePokemonList } from '~/interface/ResponsePokemonList';
+import type { PokemonNameUrl, ResponsePokemonList } from '~/interface/ResponsePokemonList';
 import type { FetchError } from 'ofetch';
+import type { PokemonInterface } from '~/interface/PokemonInterface';
 
 export default defineCachedEventHandler(
     async e => {
@@ -14,8 +15,17 @@ export default defineCachedEventHandler(
             const data = await $fetch<ResponsePokemonList>(
                 `${api_url_pokemon}/pokemon?limit=${limit}&offset=${offset}`
             );
+
+            data.results = await Promise.all(
+                data.results.map(async (pokemon): Promise<PokemonNameUrl> => {
+                    pokemon.pokemonData = await $fetch<PokemonInterface>(pokemon.url);
+                    return pokemon;
+                })
+            );
+
             return data;
         } catch (e: unknown) {
+            console.log(e);
             const error: FetchError = e as FetchError;
             if (error.response) {
                 const errorMessage = error.response.statusText;
