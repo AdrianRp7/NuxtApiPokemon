@@ -15,16 +15,26 @@
     }
 
     .pb-#{$extension} {
-        margin-bottom: $value;
+        padding-bottom: $value;
     }
     .pt-#{$extension} {
-        margin-top: $value;
+        padding-top: $value;
     }
     .pl-#{$extension} {
-        margin-left: $value;
+        padding-left: $value;
     }
     .pr-#{$extension} {
-        margin-right: $value;
+        padding-right: $value;
+    }
+
+    .py-#{$extension} {
+        padding-top: $value;
+        padding-bottom: $value;
+    }
+
+    .px-#{$extension} {
+        padding-left: $value;
+        padding-right: $value;
     }
 
     .p-#{$extension} {
