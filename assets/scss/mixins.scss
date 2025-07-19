@@ -2,7 +2,7 @@
 @use 'sass:map';
 
 @mixin desktop {
-    @media (#{map.get($screenSizes, 'desktop')} >= width) {
+    @media (width >= #{map.get($screenSizes, 'desktop')}) {
         @content;
     }
 }
@@ -14,7 +14,7 @@
 }
 
 @mixin mobile {
-    @media (#{map.get($screenSizes, 'mobile')} <= width ) {
+    @media (width <= #{map.get($screenSizes, 'mobile')}) {
         @content;
     }
 }

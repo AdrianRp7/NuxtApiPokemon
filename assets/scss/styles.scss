@@ -3,7 +3,20 @@
 @forward 'colors';
 @forward 'flex';
 @forward 'widthHeight';
+@use 'mixins' as *;
+@use 'sass:map';
 
 body {
     margin: 0;
+}
+
+.container {
+    width: 100%;
+    @include tablet() {
+        max-width: #{map.get($screenSizes, 'tablet')};
+    }
+
+    @include desktop() {
+        max-width: #{map.get($screenSizes, 'desktop')};
+    }
 }
