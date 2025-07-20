@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1 class="is-color-main">Hola Mundo</h1>
         {{ result.data }}
     </div>
 </template>
@@ -13,6 +12,4 @@
     const result = useFetch(
         `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`
     );
-
-    console.log(result.data);
 </script>

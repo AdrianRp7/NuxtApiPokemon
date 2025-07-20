@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     runtimeConfig: {
-        api_url_pokemon: ''
+        api_url_pokemon: '',
+        front_url: ''
     },
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
