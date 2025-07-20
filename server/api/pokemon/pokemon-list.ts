@@ -2,6 +2,7 @@ import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
 import type { PokemonNameUrl, ResponsePokemonList } from '~/interface/ResponsePokemonList';
 import type { FetchError } from 'ofetch';
 import type { PokemonInterface } from '~/interface/PokemonInterface';
+import { typeResponseString } from '~/interface/ResponseServer';
 
 export default defineCachedEventHandler(
     async e => {
@@ -16,14 +17,22 @@ export default defineCachedEventHandler(
                 `${api_url_pokemon}/pokemon?limit=${limit}&offset=${offset}`
             );
 
-            data.results = await Promise.all(
+            const resultsPokemonPromises = await Promise.allSettled(
                 data.results.map(async (pokemon): Promise<PokemonNameUrl> => {
                     pokemon.pokemonData = await $fetch<PokemonInterface>(pokemon.url);
                     return pokemon;
                 })
             );
 
-            return data;
+            //Returns all promises without failure, if one pokemon fails we continue with the rest of Pokemons
+            data.results = resultsPokemonPromises
+                .filter(result => result.status === 'fulfilled')
+                .map(result => result.value);
+
+            return {
+                type: typeResponseString.OK,
+                response: data
+            };
         } catch (e: unknown) {
             console.log(e);
             const error: FetchError = e as FetchError;
@@ -32,7 +41,7 @@ export default defineCachedEventHandler(
                 const errorCode = error.response.status;
 
                 const objectError = {
-                    type: 'ERROR',
+                    type: typeResponseString.ERROR,
                     response: `The api returns an error with code ${errorCode} and message: ${errorMessage}`
                 };
 
@@ -40,7 +49,7 @@ export default defineCachedEventHandler(
             }
 
             return {
-                type: 'ERROR',
+                type: typeResponseString.ERROR,
                 response: 'Hubo un error desconocido'
             };
         }

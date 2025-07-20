@@ -3,12 +3,16 @@
         <template v-for="pokemon in pokemonList" :key="pokemon.name">
             <PokemonCard v-if="pokemon.pokemonData" :pokemon="pokemon.pokemonData" />
         </template>
+        <template v-if="errorMessage !== ''">
+            <h3 class="is-text-h3 text-center capitalize">{{ errorMessage }}</h3>
+        </template>
     </section>
 </template>
 
 <script setup lang="ts">
     import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
     import type { PokemonNameUrl, ResponsePokemonList } from '~/interface/ResponsePokemonList';
+    import { typeResponseString, type ResponseServer } from '~/interface/ResponseServer';
 
     definePageMeta({
         validate: async route => {
@@ -20,29 +24,48 @@
             );
         }
     });
-
+    const pokemonList = ref<PokemonNameUrl[]>([]);
     const route = useRoute();
     const page: number = Number(route.params.page);
-
     const offset = ref((page - 1) * PokemonPaginationVariables.PokemonPerPage);
+    const errorMessage = ref('');
 
-    const { error, data } = useFetch<ResponsePokemonList>(
+    const { error, data } = await useFetch<ResponseServer<ResponsePokemonList | string>>(
         `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`
     );
 
-    const links = [{ rel: 'canonical', href: route.fullPath }];
+    //Error controls
+    if (error.value && error.value.message) {
+        errorMessage.value = error.value.message;
+    }
 
-    if (data?.value?.next) links.push({ rel: 'next', href: data.value.next });
-    if (data?.value?.previous) links.push({ rel: 'prev', href: data.value.previous });
+    if (!data.value) {
+        errorMessage.value = 'No data for this parameters';
+    }
 
-    const pokemonList = ref<PokemonNameUrl[]>([]);
+    if (
+        data.value &&
+        data.value.type === typeResponseString.ERROR &&
+        typeof data.value.response === 'string'
+    ) {
+        errorMessage.value = data.value.response;
+    }
 
-    if (data.value) pokemonList.value = data.value.results;
+    //Logic
+    if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
+        const links = [{ rel: 'canonical', href: route.fullPath }];
 
-    useHead({
-        title: `Pokemon - Page ${page}`,
-        link: links
-    });
+        if (data?.value?.response.next) links.push({ rel: 'next', href: data.value.response.next });
+        if (data?.value?.response.previous)
+            links.push({ rel: 'prev', href: data.value.response.previous });
+
+        if (data.value) pokemonList.value = data.value.response.results;
+
+        useHead({
+            title: `Pokemon - Page ${page}`,
+            link: links
+        });
+    }
 </script>
 
 <style scoped lang="scss">
