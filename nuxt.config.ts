@@ -2,7 +2,9 @@
 export default defineNuxtConfig({
     runtimeConfig: {
         api_url_pokemon: '',
-        front_url: ''
+        public: {
+            front_url: process.env.NUXT_FRONT_URL
+        }
     },
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },

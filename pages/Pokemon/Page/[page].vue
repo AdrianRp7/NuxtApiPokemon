@@ -24,6 +24,7 @@
             );
         }
     });
+    const runConf = useRuntimeConfig();
     const pokemonList = ref<PokemonNameUrl[]>([]);
     const route = useRoute();
     const page: number = Number(route.params.page);
@@ -53,11 +54,18 @@
 
     //Logic
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
-        const links = [{ rel: 'canonical', href: route.fullPath }];
+        const links = [{ rel: 'canonical', href: runConf.public.front_url + route.fullPath }];
 
-        if (data?.value?.response.next) links.push({ rel: 'next', href: data.value.response.next });
+        if (data?.value?.response.next)
+            links.push({
+                rel: 'next',
+                href: `${runConf.public.front_url}/pokemon/page/${page + 1}`
+            });
         if (data?.value?.response.previous)
-            links.push({ rel: 'prev', href: data.value.response.previous });
+            links.push({
+                rel: 'prev',
+                href: `${runConf.public.front_url}/pokemon/page/${page - 1}`
+            });
 
         if (data.value) pokemonList.value = data.value.response.results;
 
