@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+    import { useFetchErrorControl } from '~/composable/UseFetchErrorControl';
     import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
     import type { PokemonNameUrl, ResponsePokemonList } from '~/interface/ResponsePokemonList';
     import { typeResponseString, type ResponseServer } from '~/interface/ResponseServer';
@@ -40,7 +41,6 @@
     const route = useRoute();
     const page = computed(() => Number(route.params.page));
     const offset = computed(() => (page.value - 1) * PokemonPaginationVariables.PokemonPerPage);
-    const errorMessage = ref('');
 
     const { error, data } = await useFetch<ResponseServer<ResponsePokemonList | string>>(
         `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`,
@@ -50,22 +50,7 @@
         }
     );
 
-    //Error controls
-    if (error.value && error.value.message) {
-        errorMessage.value = error.value.message;
-    }
-
-    if (!data.value) {
-        errorMessage.value = 'No data for this parameters';
-    }
-
-    if (
-        data.value &&
-        data.value.type === typeResponseString.ERROR &&
-        typeof data.value.response === 'string'
-    ) {
-        errorMessage.value = data.value.response;
-    }
+    const { errorMessage } = useFetchErrorControl<ResponsePokemonList | string>(data, error);
 
     //Logic
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
