@@ -7,18 +7,20 @@
             quality="80"
             :alt="`Pokemon ${pokemon.name} image`"
         />
-        <div class="pokemon-card-data">
+        <div class="pokemon-card-data flex flex-col justify-content-between">
             <h3 class="is-text-navigation capitalize">{{ pokemon.name }}</h3>
-            <p class="is-text-regular">Types:</p>
-            <div class="flex gap-1">
-                <SharedChip
-                    v-for="type in pokemonTypes"
-                    :key="pokemon.name + type"
-                    class="is-color-white is-text-regular capitalize"
-                    :bgcolor="PokemonsColors[type]"
-                >
-                    {{ type }}
-                </SharedChip>
+            <div>
+                <p class="is-text-regular">Types:</p>
+                <div class="flex gap-1">
+                    <SharedChip
+                        v-for="type in pokemonTypes"
+                        :key="pokemon.name + type"
+                        class="is-color-white is-text-regular capitalize"
+                        :bgcolor="PokemonsColors[type]"
+                    >
+                        {{ type }}
+                    </SharedChip>
+                </div>
             </div>
         </div>
     </article>
