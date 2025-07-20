@@ -6,6 +6,12 @@
         <template v-if="errorMessage !== ''">
             <h3 class="is-text-h3 text-center capitalize">{{ errorMessage }}</h3>
         </template>
+        <SharedPaginator
+            :name-nuxt-url="'pokemon-page-page'"
+            :total-elements="totalPokemon"
+            :actual-page="page"
+            :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
+        />
     </section>
 </template>
 
@@ -26,13 +32,18 @@
     });
     const runConf = useRuntimeConfig();
     const pokemonList = ref<PokemonNameUrl[]>([]);
+    const totalPokemon = ref<number>(0);
     const route = useRoute();
-    const page: number = Number(route.params.page);
-    const offset = ref((page - 1) * PokemonPaginationVariables.PokemonPerPage);
+    const page = computed(() => Number(route.params.page));
+    const offset = computed(() => (page.value - 1) * PokemonPaginationVariables.PokemonPerPage);
     const errorMessage = ref('');
 
     const { error, data } = await useFetch<ResponseServer<ResponsePokemonList | string>>(
-        `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`
+        `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`,
+        {
+            watch: [page],
+            server: true
+        }
     );
 
     //Error controls
@@ -56,21 +67,23 @@
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
         const links = [{ rel: 'canonical', href: runConf.public.front_url + route.fullPath }];
 
+        totalPokemon.value = data?.value?.response.count ?? 0;
+
         if (data?.value?.response.next)
             links.push({
                 rel: 'next',
-                href: `${runConf.public.front_url}/pokemon/page/${page + 1}`
+                href: `${runConf.public.front_url}/pokemon/page/${page.value + 1}`
             });
         if (data?.value?.response.previous)
             links.push({
                 rel: 'prev',
-                href: `${runConf.public.front_url}/pokemon/page/${page - 1}`
+                href: `${runConf.public.front_url}/pokemon/page/${page.value - 1}`
             });
 
         if (data.value) pokemonList.value = data.value.response.results;
 
         useHead({
-            title: `Pokemon - Page ${page}`,
+            title: `Pokemon - Page ${page.value}`,
             link: links
         });
     }

@@ -2,6 +2,7 @@ import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
 import type { PokemonNameUrl, ResponsePokemonList } from '~/interface/ResponsePokemonList';
 import type { FetchError } from 'ofetch';
 import type { PokemonInterface } from '~/interface/PokemonInterface';
+import type { ResponseServer } from '~/interface/ResponseServer';
 import { typeResponseString } from '~/interface/ResponseServer';
 
 export default defineCachedEventHandler(
@@ -29,12 +30,13 @@ export default defineCachedEventHandler(
                 .filter(result => result.status === 'fulfilled')
                 .map(result => result.value);
 
-            return {
+            const result: ResponseServer<ResponsePokemonList> = {
                 type: typeResponseString.OK,
                 response: data
             };
+
+            return result;
         } catch (e: unknown) {
-            console.log(e);
             const error: FetchError = e as FetchError;
             if (error.response) {
                 const errorMessage = error.response.statusText;
