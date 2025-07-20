@@ -1,5 +1,5 @@
 <template>
-    <span class="py-2 px-4" :style="{ 'background-color': bgcolor }">
+    <span class="chip-container py-2 px-4" :style="{ 'background-color': bgcolor }">
         <slot />
     </span>
 </template>
@@ -12,4 +12,8 @@
     const { bgcolor } = defineProps<Props>();
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+    .chip-container {
+        border-radius: $border-radius-base;
+    }
+</style>

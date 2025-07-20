@@ -40,6 +40,10 @@
     .p-#{$extension} {
         padding: $value;
     }
+
+    .gap-#{$extension} {
+        gap: $value;
+    }
 }
 
 .mx-auto {
