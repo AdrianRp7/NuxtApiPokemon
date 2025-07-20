@@ -1,18 +1,22 @@
 <template>
-    <section aria-label="List of pokemon section" class="grid-pokemon w-100">
-        <template v-for="pokemon in pokemonList" :key="pokemon.name">
-            <PokemonCard v-if="pokemon.pokemonData" :pokemon="pokemon.pokemonData" />
-        </template>
-        <template v-if="errorMessage !== ''">
-            <h3 class="is-text-h3 text-center capitalize">{{ errorMessage }}</h3>
-        </template>
-        <SharedPaginator
-            :name-nuxt-url="'pokemon-page-page'"
-            :total-elements="totalPokemon"
-            :actual-page="page"
-            :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
-        />
-    </section>
+    <div>
+        <section aria-label="List of pokemon section" class="grid-pokemon w-100">
+            <template v-for="pokemon in pokemonList" :key="pokemon.name">
+                <PokemonCard v-if="pokemon.pokemonData" :pokemon="pokemon.pokemonData" />
+            </template>
+            <template v-if="errorMessage !== ''">
+                <h3 class="is-text-h3 text-center capitalize">{{ errorMessage }}</h3>
+            </template>
+        </section>
+        <div v-if="errorMessage === ''" class="flex justify-content-center w-100 mt-5">
+            <SharedPaginator
+                :name-nuxt-url="'pokemon-page-page'"
+                :total-elements="totalPokemon"
+                :actual-page="page"
+                :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
+            />
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">

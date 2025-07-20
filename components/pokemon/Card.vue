@@ -1,5 +1,5 @@
 <template>
-    <article class="flex pokemon-card p-4">
+    <article class="flex pokemon-card button-default p-4">
         <NuxtImg
             :src="pokemon.sprites.front_default"
             placeholder
@@ -45,12 +45,8 @@
 <style scoped lang="scss">
     .pokemon-card {
         gap: 10px;
-        background-color: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: $border-radius-base;
-        color: #333;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-
+        cursor: pointer;
         img {
             flex: 0 0 33%;
         }

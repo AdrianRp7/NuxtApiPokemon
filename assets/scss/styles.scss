@@ -26,3 +26,10 @@ body {
         max-width: #{map.get($screenSizes, 'desktop')};
     }
 }
+
+.button-default {
+    background-color: rgba(map.get($colors, 'white'), 0.15);
+    border: 1px solid rgba(map.get($colors, 'white'), 0.3);
+    color: #333;
+    box-shadow: 0 4px 24px rgba(map.get($colors, 'black'), 0.15);
+}

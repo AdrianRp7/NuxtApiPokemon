@@ -1,17 +1,19 @@
 <template>
-    <div class="flex gap-2">
+    <div class="flex align-center gap-2">
         <NuxtLink
             v-if="actualPage > 1"
+            class="button-page button-default p-2"
             :to="{ name: nameNuxtUrl, params: { page: actualPage - 1 } }"
         >
-            '&lt;'
+            &lt;
         </NuxtLink>
-        <!-- <input /> -->
+        <p>{{ actualPage }}</p>
         <NuxtLink
             v-if="actualPage < totalPages"
+            class="button-page button-default p-2"
             :to="{ name: nameNuxtUrl, params: { page: actualPage + 1 } }"
         >
-            '&gt;'
+            &gt;
         </NuxtLink>
     </div>
 </template>
@@ -30,3 +32,9 @@
 
     const totalPages = Math.ceil(totalElements / elementsPerPage);
 </script>
+
+<style scoped lang="scss">
+    .button-page {
+        text-decoration: none;
+    }
+</style>
