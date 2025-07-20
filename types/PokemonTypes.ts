@@ -1,3 +1,3 @@
-import type PokemonColorsType from '../data/PokemonColorsType';
+import type PokemonColors from '../data/PokemonColors';
 
-export type PokemonType = keyof typeof PokemonColorsType;
+export type PokemonType = keyof typeof PokemonColors;
