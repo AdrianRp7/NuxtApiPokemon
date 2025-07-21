@@ -1,6 +1,15 @@
 <template>
     <section aria-label="List of pokemon section" class="w-100">
-        <div class="grid-pokemon w-100">
+        <div v-if="errorMessage === ''" class="flex justify-content-center w-100 mt-5 mb-5">
+            <SharedPaginator
+                :name-nuxt-url="'pokemon-page-page'"
+                :total-elements="totalPokemon"
+                :actual-page="page"
+                :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
+                @changed-page="showLoading = true"
+            />
+        </div>
+        <div class="grid-pokemon w-100 mb-5">
             <template v-for="pokemon in pokemonList" :key="pokemon.name">
                 <PokemonCard v-if="pokemon.pokemonData" :pokemon="pokemon.pokemonData" />
             </template>
@@ -8,14 +17,7 @@
                 <h3 class="is-text-h3 text-center capitalize">{{ errorMessage }}</h3>
             </template>
         </div>
-        <div v-if="errorMessage === ''" class="flex justify-content-center w-100 mt-5">
-            <SharedPaginator
-                :name-nuxt-url="'pokemon-page-page'"
-                :total-elements="totalPokemon"
-                :actual-page="page"
-                :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
-            />
-        </div>
+        <PokemonLoading v-if="showLoading" />
     </section>
 </template>
 
@@ -41,6 +43,7 @@
     const route = useRoute();
     const page = computed(() => Number(route.params.page));
     const offset = computed(() => (page.value - 1) * PokemonPaginationVariables.PokemonPerPage);
+    const showLoading = ref<boolean>(false);
 
     const { error, data } = await useFetch<ResponseServer<ResponsePokemonList | string>>(
         `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`,
