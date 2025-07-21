@@ -1,15 +1,5 @@
 <template>
-    <div>
-        {{ result.data }}
-    </div>
+    <div>This page will never be displayed</div>
 </template>
 
-<script setup lang="ts">
-    import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
-
-    const offset = ref(0);
-
-    const result = useFetch(
-        `/api/pokemon/pokemon-list?limit=${PokemonPaginationVariables.PokemonPerPage}&offset=${offset.value}`
-    );
-</script>
+<script setup lang="ts"></script>

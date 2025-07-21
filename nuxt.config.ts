@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/test-utils'],
     css: ['@/assets/scss/styles.scss'],
+    routeRules: {
+        '/': { redirect: '/pokemon/page/1' }
+    },
     vite: {
         css: {
             preprocessorOptions: {
