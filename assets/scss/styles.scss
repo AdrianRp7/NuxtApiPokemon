@@ -1,5 +1,5 @@
 @forward 'margins';
-@forward 'fonts';
+@forward 'text-sizes';
 @forward 'colors';
 @forward 'flex';
 @forward 'widthHeight';
@@ -10,6 +10,7 @@
 *,
 *::after {
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {

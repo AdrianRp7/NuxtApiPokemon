@@ -2,6 +2,23 @@
     text-align: center;
 }
 
+.text-decoration-none {
+    text-decoration: none;
+}
+
 .capitalize {
     text-transform: capitalize;
+}
+
+.title {
+    font-family: 'Bangers', system-ui;
+    font-weight: 700;
+}
+
+.text-semibold {
+    font-weight: 700;
+}
+
+.text-regular {
+    font-weight: 400;
 }

@@ -8,10 +8,16 @@ export default defineNuxtConfig({
     },
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
-    modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/test-utils'],
+    modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/test-utils', '@nuxtjs/google-fonts'],
     css: ['@/assets/scss/styles.scss'],
     routeRules: {
         '/': { redirect: '/pokemon/page/1' }
+    },
+    googleFonts: {
+        families: {
+            Bangers: [700, 900],
+            Poppins: [400, 700]
+        }
     },
     vite: {
         css: {
