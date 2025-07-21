@@ -35,7 +35,7 @@
                 <p
                     v-for="pokStat in pokemon.stats"
                     :key="pokStat.stat.name"
-                    class="is-text-regular text-semibold"
+                    class="is-text-regular text-semibold capitalize"
                 >
                     {{ pokStat.stat.name }}:
                     <span class="text-regular">{{ pokStat.base_stat }}</span>
