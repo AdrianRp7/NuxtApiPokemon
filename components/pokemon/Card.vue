@@ -5,8 +5,9 @@
     >
         <article class="flex pokemon-card button-default p-4">
             <NuxtImg
-                :src="pokemon.sprites.front_default"
+                :src="pokemonImage"
                 placeholder
+                fit="cover"
                 loading="lazy"
                 quality="80"
                 :alt="`Pokemon ${pokemon.name} image`"
@@ -30,6 +31,14 @@
     }
 
     const { pokemon } = defineProps<Props>();
+
+    const usePokemon = usePokemonStore();
+
+    const pokemonImage = computed(() => {
+        return usePokemon.shinyModeActive
+            ? pokemon.sprites.front_shiny
+            : pokemon.sprites.front_default;
+    });
 </script>
 
 <style scoped lang="scss">
@@ -39,6 +48,8 @@
         cursor: pointer;
         img {
             flex: 0 0 33%;
+            max-width: 33%;
+            object-fit: contain;
         }
 
         &-container {

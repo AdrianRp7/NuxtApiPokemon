@@ -4,14 +4,14 @@
             <section aria-label="name and photo pokemon" class="flex flex-col">
                 <h1 class="is-text-h3 text-center capitalize title">{{ pokemonName }}</h1>
                 <div class="text-center">
-                    <NuxtImg class="mx-auto" :src="pokemonImage" />
+                    <NuxtImg fit="cover" class="mx-auto" :src="pokemonImage" />
                 </div>
             </section>
             <section
                 class="mx-auto flex justify-content-center button-default section-basic-information p-5 gap-5"
                 aria-label="pokemon basic information"
             >
-                <div>
+                <div class="flex flex-col justify-between w-100">
                     <p class="is-text-regular text-semibold">
                         Height:
                         <span class="text-regular">{{ pokemon.height }} dm</span>
@@ -21,9 +21,11 @@
                         <span class="text-regular">{{ pokemon.weight }} hg</span>
                     </p>
                 </div>
-                <div>
+                <div class="flex flex-col justify-between w-100">
                     <p class="is-text-regular text-semibold">Types:</p>
-                    <PokemonTypeChips :pokemon="pokemon" />
+                    <div class="flex justify-content-center">
+                        <PokemonTypeChips :pokemon="pokemon" />
+                    </div>
                 </div>
             </section>
             <section
@@ -60,14 +62,20 @@
     const pokemonName = computed(() => route.params.name);
     const pokemon = ref<PokemonInterface | null>(null);
     const pokemonTypes = ref<PokemonType[]>([]);
+    const usePokemon = usePokemonStore();
     const pokemonImage = computed(() => {
-        return pokemon.value?.sprites.animated?.front_default
-            ? pokemon.value?.sprites.animated?.front_default
-            : pokemon.value?.sprites.versions?.['generation-v']['black-white'].animated
-                    ?.front_default
-              ? pokemon.value?.sprites.versions?.['generation-v']['black-white'].animated
-                    ?.front_default
-              : pokemon.value?.sprites.front_default;
+        const imageReturn: 'front_shiny' | 'front_default' = usePokemon.shinyModeActive
+            ? 'front_shiny'
+            : 'front_default';
+        return pokemon.value?.sprites.animated?.[imageReturn]
+            ? pokemon.value?.sprites.animated?.[imageReturn]
+            : pokemon.value?.sprites.versions?.['generation-v']['black-white'].animated?.[
+                    imageReturn
+                ]
+              ? pokemon.value?.sprites.versions?.['generation-v']['black-white'].animated?.[
+                    imageReturn
+                ]
+              : pokemon.value?.sprites?.[imageReturn];
     });
 
     const { error, data } = await useFetch<ResponseServer<PokemonInterface | string>>(
@@ -79,6 +87,8 @@
     );
 
     const { errorMessage } = useFetchErrorControl<PokemonInterface | string>(data, error);
+
+    // const { shinyModeActive } = usePokemonStore();
 
     //Logic
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
