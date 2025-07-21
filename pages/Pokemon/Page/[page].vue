@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <section aria-label="List of pokemon section" class="grid-pokemon w-100">
+    <section aria-label="List of pokemon section" class="w-100">
+        <div class="grid-pokemon w-100">
             <template v-for="pokemon in pokemonList" :key="pokemon.name">
                 <PokemonCard v-if="pokemon.pokemonData" :pokemon="pokemon.pokemonData" />
             </template>
             <template v-if="errorMessage !== ''">
                 <h3 class="is-text-h3 text-center capitalize">{{ errorMessage }}</h3>
             </template>
-        </section>
+        </div>
         <div v-if="errorMessage === ''" class="flex justify-content-center w-100 mt-5">
             <SharedPaginator
                 :name-nuxt-url="'pokemon-page-page'"
@@ -16,14 +16,14 @@
                 :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
             />
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup lang="ts">
     import { useFetchErrorControl } from '~/composable/UseFetchErrorControl';
     import PokemonPaginationVariables from '~/data/PokemonPaginationVariables';
     import type { PokemonNameUrl, ResponsePokemonList } from '~/interface/ResponsePokemonList';
-    import { typeResponseString, type ResponseServer } from '~/interface/ResponseServer';
+    import type { ResponseServer } from '~/interface/ResponseServer';
 
     definePageMeta({
         validate: async route => {
