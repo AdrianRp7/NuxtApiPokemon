@@ -12,17 +12,17 @@
                 aria-label="pokemon basic information"
             >
                 <div class="flex flex-col justify-between w-100">
-                    <p class="is-text-regular text-semibold">
+                    <p class="text-left is-text-regular text-semibold">
                         Height:
                         <span class="text-regular">{{ pokemon.height }} dm</span>
                     </p>
-                    <p class="is-text-regular text-semibold">
+                    <p class="text-left is-text-regular text-semibold">
                         Weidth:
                         <span class="text-regular">{{ pokemon.weight }} hg</span>
                     </p>
                 </div>
                 <div class="flex flex-col justify-between w-100">
-                    <p class="is-text-regular text-semibold">Types:</p>
+                    <p class="is-text-regular text-semibold text-center">Types</p>
                     <div class="flex justify-content-center">
                         <PokemonTypeChips :pokemon="pokemon" />
                     </div>
