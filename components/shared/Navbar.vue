@@ -21,7 +21,7 @@
 
 <style scoped lang="scss">
     .logo {
-        width: 80px;
+        width: 120px;
         height: auto;
     }
 </style>

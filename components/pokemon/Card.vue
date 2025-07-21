@@ -52,8 +52,10 @@
             object-fit: contain;
         }
 
-        &-container {
-            flex: 0 0 auto;
+        transition: all 0.25s ease;
+
+        &:hover {
+            transform: scale(1.05);
         }
     }
 </style>
