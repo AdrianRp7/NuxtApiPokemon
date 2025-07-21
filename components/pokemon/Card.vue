@@ -11,16 +11,7 @@
             <h3 class="is-text-navigation capitalize">{{ pokemon.name }}</h3>
             <div>
                 <p class="is-text-regular">Types:</p>
-                <div class="flex gap-1">
-                    <SharedChip
-                        v-for="type in pokemonTypes"
-                        :key="pokemon.name + type"
-                        class="is-color-white is-text-regular capitalize"
-                        :bgcolor="PokemonsColors[type]"
-                    >
-                        {{ type }}
-                    </SharedChip>
-                </div>
+                <PokemonTypeChips :pokemon="pokemon" />
             </div>
         </div>
     </article>
@@ -28,18 +19,12 @@
 
 <script setup lang="ts">
     import type { PokemonInterface } from '~/interface/PokemonInterface';
-    import PokemonsColors from '~/data/PokemonColors';
-    import type { PokemonType } from '~/types/PokemonTypes';
 
     interface Props {
         pokemon: PokemonInterface;
     }
 
     const { pokemon } = defineProps<Props>();
-
-    const pokemonTypes: PokemonType[] = pokemon.types.map(element => {
-        return element.type.name;
-    });
 </script>
 
 <style scoped lang="scss">
