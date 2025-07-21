@@ -1,21 +1,46 @@
 <template>
-    <div>
-        <section aria-label="Pokemon information section" class="grid-pokemon w-100">
-            <template v-if="pokemon">
+    <section aria-label="Pokemon information section" class="w-100 text-center">
+        <div v-if="pokemon" class="flex flex-col gap-2">
+            <section aria-label="name and photo pokemon" class="flex flex-col">
+                <h1 class="is-text-h3 text-center capitalize title">{{ pokemonName }}</h1>
                 <div class="text-center">
                     <NuxtImg class="mx-auto" :src="pokemonImage" />
                 </div>
-                <h1 class="is-text-h3 text-center capitalize">{{ pokemonName }}</h1>
-                <p>Height: {{ pokemon.height }}</p>
-                <p>Weidth: {{ pokemon.weight }}</p>
-                <p>Stats: {{ pokemon.stats }}</p>
+            </section>
+            <section
+                class="mx-auto flex justify-content-center button-default section-basic-information p-5 gap-5"
+                aria-label="pokemon basic information"
+            >
                 <div>
-                    <p class="is-text-regular">Types:</p>
+                    <p class="is-text-regular text-semibold">
+                        Height:
+                        <span class="text-regular">{{ pokemon.height }} dm</span>
+                    </p>
+                    <p class="is-text-regular text-semibold">
+                        Weidth:
+                        <span class="text-regular">{{ pokemon.weight }} hg</span>
+                    </p>
+                </div>
+                <div>
+                    <p class="is-text-regular text-semibold">Types:</p>
                     <PokemonTypeChips :pokemon="pokemon" />
                 </div>
-            </template>
-        </section>
-    </div>
+            </section>
+            <section
+                class="mx-auto section-stats-information flex p-5 gap-5"
+                aria-label="pokemon stats information"
+            >
+                <p
+                    v-for="pokStat in pokemon.stats"
+                    :key="pokStat.stat.name"
+                    class="is-text-regular text-semibold"
+                >
+                    {{ pokStat.stat.name }}:
+                    <span class="text-regular">{{ pokStat.base_stat }}</span>
+                </p>
+            </section>
+        </div>
+    </section>
 </template>
 
 <script setup lang="ts">
@@ -38,7 +63,11 @@
     const pokemonImage = computed(() => {
         return pokemon.value?.sprites.animated?.front_default
             ? pokemon.value?.sprites.animated?.front_default
-            : pokemon.value?.sprites.front_default;
+            : pokemon.value?.sprites.versions?.['generation-v']['black-white'].animated
+                    ?.front_default
+              ? pokemon.value?.sprites.versions?.['generation-v']['black-white'].animated
+                    ?.front_default
+              : pokemon.value?.sprites.front_default;
     });
 
     const { error, data } = await useFetch<ResponseServer<PokemonInterface | string>>(
@@ -68,8 +97,33 @@
 </script>
 
 <style scoped lang="scss">
+    @use 'sass:map';
     img {
         height: auto;
-        width: 150px;
+        width: 80px;
+    }
+
+    body .section-basic-information,
+    body .section-stats-information {
+        border-radius: $border-radius-base;
+        // max-width: fit-content;
+        width: 90%;
+        @include tablet {
+            width: 400px;
+        }
+        @include desktop {
+            width: 400px;
+        }
+    }
+    body .section-basic-information {
+        background-color: map.get($colors, 'accent');
+    }
+    body .section-stats-information {
+        background-color: map.get($colors, 'accent-pikachu');
+        flex-wrap: wrap;
+        p {
+            flex: 0 0 calc(50% - map.get($margins, '5'));
+            text-align: left;
+        }
     }
 </style>
