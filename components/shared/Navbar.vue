@@ -3,11 +3,14 @@
         <NuxtLink to="/">
             <img class="logo" :src="'/images/pokemon-logo.svg'" />
         </NuxtLink>
-        <div class="flex align-center gap-3">
+        <div class="flex align-center gap-5">
             <NuxtLink to="/" class="is-text-navigation is-color-white text-decoration-none">
                 Home
             </NuxtLink>
-            <SharedSwitcher v-model="usePokemon.shinyModeActive" />
+            <div class="flex align-center gap-2">
+                <p class="is-text-navigation is-color-white">Shiny mode:</p>
+                <SharedSwitcher v-model="usePokemon.shinyModeActive" />
+            </div>
         </div>
     </header>
 </template>
