@@ -2,11 +2,10 @@
     <div class="flex flex-col align-center gap-3">
         <div class="flex align-center gap-2">
             <NuxtLink
-                :disabled="actualPage <= 1"
                 class="button-page button-default p-2"
                 :class="{ disabled: actualPage <= 1 }"
                 :to="{ name: nameNuxtUrl, params: { page: previousPage } }"
-                @click="emit('changed-page')"
+                @click="changedPage(actualPage - 1 >= 1)"
             >
                 &lt;
             </NuxtLink>
@@ -21,7 +20,7 @@
                 class="button-page button-default p-2"
                 :class="{ disabled: actualPage >= totalPages }"
                 :to="{ name: nameNuxtUrl, params: { page: nextPage } }"
-                @click="emit('changed-page')"
+                @click="changedPage(actualPage + 1 <= totalPages)"
             >
                 &gt;
             </NuxtLink>
@@ -59,11 +58,16 @@
 
     const changePage = (page: number): void => {
         if (totalPages >= page && page > 0) {
+            emit('changed-page');
             router.push({ name: nameNuxtUrl, params: { page } });
         } else {
             messageError.value = `The page must be between 1 to ${totalPages}`;
             pageInput.value = actualPage;
         }
+    };
+
+    const changedPage = (condition: boolean) => {
+        if (condition) emit('changed-page');
     };
 </script>
 
@@ -74,12 +78,12 @@
 
         transition: all 0.25s ease;
 
-        &:hover {
+        &:not(.disabled):hover {
             color: map.get($colors, 'white');
             background-color: map.get($colors, 'accent-pikachu');
         }
 
-        &:focus {
+        &:not(.disabled):focus {
             color: map.get($colors, 'white');
             background-color: map.get($colors, 'main');
         }
