@@ -7,7 +7,23 @@
             <section aria-label="name and photo pokemon" class="flex flex-col">
                 <h1 class="is-text-h3 text-center capitalize title">{{ pokemonName }}</h1>
                 <div class="text-center">
-                    <NuxtImg fit="cover" class="mx-auto" :src="pokemonImage" />
+                    <NuxtImg
+                        v-slot="{ src, isLoaded, imgAttrs }"
+                        fit="cover"
+                        class="mx-auto"
+                        :src="pokemonImage"
+                        :custom="true"
+                    >
+                        <!-- Show the actual image when loaded -->
+                        <img v-if="isLoaded" v-bind="imgAttrs" :src="src" />
+
+                        <!-- Show a placeholder while loading -->
+                        <img
+                            v-else
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                            alt="placeholder"
+                        />
+                    </NuxtImg>
                 </div>
             </section>
             <section
