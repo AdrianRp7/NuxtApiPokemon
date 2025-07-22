@@ -91,6 +91,12 @@
 
     const { errorMessage } = useFetchErrorControl<PokemonInterface | string>(data, error);
 
+    if (errorMessage.value.includes('404')) {
+        throw createError({
+            statusCode: 404,
+            statusMessage: errorMessage.value
+        });
+    }
     //Logic
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
         const links = [{ rel: 'canonical', href: runConf.public.front_url + route.fullPath }];
