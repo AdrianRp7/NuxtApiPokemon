@@ -33,7 +33,8 @@
             return (
                 !Array.isArray(route.params.page) &&
                 typeof route.params.page === 'string' &&
-                !isNaN(Number(route.params.page))
+                !isNaN(Number(route.params.page)) &&
+                Number(route.params.page) > 0
             );
         }
     });
@@ -57,6 +58,14 @@
 
     //Logic
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
+        if (
+            Math.ceil(data.value.response.count / PokemonPaginationVariables.PokemonPerPage) <
+            page.value
+        ) {
+            //Verify the page is less or equal than the most bigger
+            throw createError({ statusCode: 404, statusMessage: 'This page doesn"t exist' });
+        }
+
         const links = [{ rel: 'canonical', href: runConf.public.front_url + route.fullPath }];
 
         totalPokemon.value = data?.value?.response.count ?? 0;
