@@ -1,4 +1,4 @@
-Proyecto creado por Adrián Ródenas Picó
+Proyecto creado por Adrián
 
 # Añadir un .env al proyecto con los datos siguientes
 
@@ -95,7 +95,7 @@ Para la maquetación he usado el ejemplo que daba el ejercicio, y he añadido un
 
 ## Modo Shiny
 
-Se ha añadido un switch en la barra de navegación que al activarse hace que todo los sprites pasen a shiny
+Se ha añadido un switch en la barra de navegación que al activarse hace que todos los sprites pasen a shiny
 
 ## Pagina de descripción de Pokemon
 
@@ -103,11 +103,15 @@ Cuando haces click a un pokemon, se mostrará una página con detalle de ese pok
 
 ## Redirección index to page/1
 
-La pagina del index directamente a la página 1 con un redirect desde nuxt.config.ts.
+La pagina del index redirije directamente a la página 1 con un redirect desde nuxt.config.ts.
 
 ## Si la imagen de un pokemon falla
 
 Se ha añadido una funcionalidad que para que cuando una imagen de un pokemon no cargue, muestre una pokeball para reemplazarlo. También como placeholder mientras carga.
+
+## Se ha creado una página de error personalizada
+
+El fichero error.vue contiene una página de error personalizada, para cuando se produzca un error en Nuxt
 
 # Configuración eslint
 
