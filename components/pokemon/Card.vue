@@ -3,7 +3,7 @@
         class="text-decoration-none"
         :to="{ name: 'pokemon-name', params: { name: pokemon.name } }"
     >
-        <article class="flex pokemon-card button-default button-default-animation p-4">
+        <article class="flex pokemon-card button-default button-default-animation h-100 p-4">
             <NuxtImg
                 :src="pokemonImage"
                 placeholder
