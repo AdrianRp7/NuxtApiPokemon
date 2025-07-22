@@ -42,6 +42,9 @@
                 </p>
             </section>
         </div>
+        <p v-if="errorMessage !== ''" class="is-color-main is-text-regular text-center">
+            {{ errorMessage }}
+        </p>
     </section>
 </template>
 
@@ -87,8 +90,6 @@
     );
 
     const { errorMessage } = useFetchErrorControl<PokemonInterface | string>(data, error);
-
-    // const { shinyModeActive } = usePokemonStore();
 
     //Logic
     if (errorMessage.value === '' && data.value && typeof data.value.response !== 'string') {
