@@ -57,7 +57,11 @@
     });
 
     const changePage = (page: number): void => {
-        if (totalPages >= page && page > 0) {
+        if (page % 1 !== 0) {
+            // eslint-disable-next-line quotes
+            messageError.value = "The page musn't contain decimals";
+            pageInput.value = actualPage;
+        } else if (totalPages >= page && page > 0) {
             emit('changed-page');
             router.push({ name: nameNuxtUrl, params: { page } });
         } else {
