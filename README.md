@@ -1,3 +1,5 @@
+Proyecto creado por Adrián Ródenas Picó
+
 # Añadir un .env al proyecto con los datos siguientes
 
 El proyecto tiene dos variables de entorno, por ello hay que crear un .env con las mismas:
@@ -75,7 +77,7 @@ yarn preview
 bun run preview
 ```
 
-Te saldrá algo como esto: http://[::]:3000. Es el equivalente a http://localhost:3000, en caso de que yendo a ese enlace, no vaya. Puedes usar el siguiente comando en lugar del anterior en el bash:
+Te saldrá algo como esto: http://[::]:3000. Es el equivalente a http://localhost:3000, en caso de que yendo a ese enlace, no funcione. Puedes usar el siguiente comando en lugar del anterior en el bash:
 
 ```bash
 # npm
@@ -101,4 +103,8 @@ Cuando haces click a un pokemon, se mostrará una página con detalle de ese pok
 
 ## Redirección index to page/1
 
-La pagina pasa del index directamente a la página 1 con un redirect.
+La pagina del index directamente a la página 1 con un redirect desde nuxt.config.ts.
+
+## Si la imagen de un pokemon falla
+
+Se ha añadido una funcionalidad que para que cuando una imagen de un pokemon no cargue, muestre una pokeball para reemplazarlo. También como placeholder mientras carga.
