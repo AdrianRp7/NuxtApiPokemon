@@ -108,3 +108,30 @@ La pagina del index directamente a la página 1 con un redirect desde nuxt.confi
 ## Si la imagen de un pokemon falla
 
 Se ha añadido una funcionalidad que para que cuando una imagen de un pokemon no cargue, muestre una pokeball para reemplazarlo. También como placeholder mientras carga.
+
+# Configuración eslint
+
+Si quieres que te corrija los errores en visual studio code el eslint automáticamente dejo la configuración (debes ponerlo en .vscode/settings.json):
+
+```
+{
+    "editor.formatOnSave": true,
+
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+        "source.fixAll.eslint": "always"
+    },
+
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
+```
