@@ -1,5 +1,8 @@
 <template>
-    <section aria-label="Pokemon information section" class="w-100 text-center">
+    <section aria-label="Pokemon information section" class="w-100 flex flex-col text-center">
+        <button class="button-default button-back cursor-pointer p-4" @click="router.back()">
+            Go back
+        </button>
         <div v-if="pokemon" class="flex flex-col gap-2">
             <section aria-label="name and photo pokemon" class="flex flex-col">
                 <h1 class="is-text-h3 text-center capitalize title">{{ pokemonName }}</h1>
@@ -62,6 +65,7 @@
     });
     const runConf = useRuntimeConfig();
     const route = useRoute();
+    const router = useRouter();
     const pokemonName = computed(() => route.params.name);
     const pokemon = ref<PokemonInterface | null>(null);
     const pokemonTypes = ref<PokemonType[]>([]);
@@ -118,6 +122,12 @@
     img {
         height: auto;
         width: 80px;
+    }
+
+    .button-back {
+        display: inline;
+        width: fit-content;
+        border-radius: $border-radius-base;
     }
 
     body .section-basic-information,
