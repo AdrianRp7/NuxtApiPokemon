@@ -11,6 +11,10 @@ NUXT_FRONT_URL = http://localhost:3000
 
 # Ejecutar el proyecto
 
+## Node version
+
+La version de node que se esta usando para el proyecto es node 23 (debería funcionar con cualquier version que funcione con nuxt 3, pero se recomienda la usada durante el desarrollo)
+
 ## Instalar las dependencias del proyecto
 
 ```bash
