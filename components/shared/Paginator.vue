@@ -6,6 +6,7 @@
                 class="button-page button-default p-2"
                 :class="{ disabled: actualPage <= 1 }"
                 :to="{ name: nameNuxtUrl, params: { page: previousPage } }"
+                @click="emit('changed-page')"
             >
                 &lt;
             </NuxtLink>
@@ -20,6 +21,7 @@
                 class="button-page button-default p-2"
                 :class="{ disabled: actualPage >= totalPages }"
                 :to="{ name: nameNuxtUrl, params: { page: nextPage } }"
+                @click="emit('changed-page')"
             >
                 &gt;
             </NuxtLink>
@@ -38,7 +40,7 @@
         elementsPerPage: number;
     }
     const emit = defineEmits<{
-        (e: 'changedPage'): void;
+        (e: 'changed-page'): void;
     }>();
 
     const { nameNuxtUrl, totalElements, actualPage, elementsPerPage } = defineProps<Props>();
@@ -57,7 +59,6 @@
 
     const changePage = (page: number): void => {
         if (totalPages >= page && page > 0) {
-            emit('changedPage');
             router.push({ name: nameNuxtUrl, params: { page } });
         } else {
             messageError.value = `The page must be between 1 to ${totalPages}`;

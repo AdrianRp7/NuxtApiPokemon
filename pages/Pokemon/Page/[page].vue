@@ -6,7 +6,7 @@
                 :total-elements="totalPokemon"
                 :actual-page="page"
                 :elements-per-page="PokemonPaginationVariables.PokemonPerPage"
-                @changed-page="showLoading = true"
+                @changed-page="showLoader"
             />
         </div>
         <div class="grid-pokemon w-100 mb-5">
@@ -88,6 +88,10 @@
             link: links
         });
     }
+
+    const showLoader = () => {
+        showLoading.value = true;
+    };
 </script>
 
 <style scoped lang="scss">
