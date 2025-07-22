@@ -12,7 +12,7 @@
             </NuxtLink>
             <input
                 v-model="pageInput"
-                class="button-page button-default input-number text-center"
+                class="button-default input-number text-center"
                 type="number"
                 @keydown.enter="changePage(pageInput)"
             />
@@ -68,8 +68,21 @@
 </script>
 
 <style scoped lang="scss">
+    @use 'sass:map';
     .button-page {
         text-decoration: none;
+
+        transition: all 0.25s ease;
+
+        &:hover {
+            color: map.get($colors, 'white');
+            background-color: map.get($colors, 'accent-pikachu');
+        }
+
+        &:focus {
+            color: map.get($colors, 'white');
+            background-color: map.get($colors, 'main');
+        }
     }
 
     .disabled {

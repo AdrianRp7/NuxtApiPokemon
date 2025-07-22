@@ -34,3 +34,11 @@ body {
     color: #333;
     box-shadow: 0 4px 24px rgba(map.get($colors, 'black'), 0.15);
 }
+
+.button-default-animation {
+    transition: all 0.25s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

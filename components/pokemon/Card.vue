@@ -3,7 +3,7 @@
         class="text-decoration-none"
         :to="{ name: 'pokemon-name', params: { name: pokemon.name } }"
     >
-        <article class="flex pokemon-card button-default p-4">
+        <article class="flex pokemon-card button-default button-default-animation p-4">
             <NuxtImg
                 :src="pokemonImage"
                 placeholder
@@ -50,12 +50,6 @@
             flex: 0 0 33%;
             max-width: 33%;
             object-fit: contain;
-        }
-
-        transition: all 0.25s ease;
-
-        &:hover {
-            transform: scale(1.05);
         }
     }
 </style>
